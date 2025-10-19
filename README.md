@@ -1,5 +1,5 @@
 # Project 3: Spots
-[Heres link of the page](https://d940909492.github.io/se_project_spots/)
+[Heres link of the deployment page](https://d940909492.github.io/se_project_spots/)
 
 ### Overview  
 
