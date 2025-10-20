@@ -33,7 +33,7 @@ This project is made so all the elements are displayed correctly on popular scre
 <br />
   
 ## gif walkthrough 
-<img src='walkt.gif' title='Video Walkthrough' width='' alt='Video Walkthrough' />
+[The file size exceeds 10M after upload gif because images is too large. Please click this link to view the GIF](https://jumpshare.com/share/IW3usfWWdJmO74fAE0kj)
 <br />
 <br />
   
