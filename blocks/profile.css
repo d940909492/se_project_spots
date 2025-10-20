@@ -88,7 +88,7 @@
   opacity: 1;
 }
 
-.profile__button-secondary__icon {
+.profile__edit-icon {
   width: 18px;
 }
 
@@ -117,7 +117,7 @@
   opacity: 0.8;
 }
 
-.profile__button-large__icon {
+.profile__new-post-icon {
   width: 12px;
   height: 12px;
 }
