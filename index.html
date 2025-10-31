@@ -129,6 +129,81 @@
       <footer class="footer page__content">
         <p class="footer__text">2023 © Spots</p>
       </footer>
+
+      <!-- sprint 4 -->
+      <!-- edit profile -->
+      <div class="modal modal_is-opened">
+        <div class="modal__container">
+          <div class="modal__head">
+            <h2 class="modal__title">Edit profile</h2>
+            <button class="modal__close-button"></button>
+          </div>
+
+          <form class="modal__form">
+            <div class="modal__form-group">
+              <label for="modal-profile-name" class="modal__label">Name</label>
+              <input
+                type="text"
+                id="modal-profile-name"
+                placeholder="Type your name"
+                class="modal__input"
+              />
+            </div>
+
+            <div class="modal__form-group">
+              <label for="modal-profile-description" class="modal__label"
+                >Description</label
+              >
+              <input
+                type="text"
+                id="modal-profile-description"
+                placeholder="Describe yourself"
+                class="modal__input"
+              />
+            </div>
+
+            <button type="submit" class="modal__save-button">Save</button>
+          </form>
+        </div>
+      </div>
+
+      <!-- new  post -->
+      <div class="modal modal_is-opened">
+        <div class="modal__container">
+          <div class="modal__head">
+            <h2 class="modal__title">New Post</h2>
+            <button class="modal__close-button"></button>
+          </div>
+
+          <form class="modal__form">
+            <div class="modal__form-group">
+              <label for="modal-profile-name" class="modal__label">Image link</label>
+              <input
+                type="url"
+                id="modal-profile-name"
+                placeholder="Paste a link to the picture"
+                class="modal__input"
+              />
+            </div>
+
+            <div class="modal__form-group">
+              <label for="modal-profile-description" class="modal__label"
+                >Caption</label
+              >
+              <input
+                type="text"
+                id="modal-profile-description"
+                placeholder="Type your caption"
+                class="modal__input"
+              />
+            </div>
+
+            <button type="submit" class="modal__save-button">Save</button>
+          </form>
+        </div>
+      </div>
+
+      </div>
     </div>
   </body>
 </html>

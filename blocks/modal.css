@@ -1,0 +1,139 @@
+.modal {
+  visibility: hidden;
+  background-color: rgba(0, 0, 0, 0.5);
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.modal_is-opened {
+  visibility: visible;
+}
+
+.modal__container {
+  max-width: 730px;
+  width: 100%;
+  border-radius: 8px;
+  background-color: rgba(255, 255, 255, 1);
+  padding: 32px 50px;
+  color: rgba(33, 33, 33, 1);
+}
+
+.modal__head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 40px;
+  margin-bottom: 32px;
+}
+
+.modal__title {
+  font-family: Poppins, Arial, Helvetica, sans-serif;
+  font-weight: 500;
+  font-size: 32px;
+  margin: 0;
+}
+
+.modal__close-button {
+  background-image: url(../images/Close.png);
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  width: 40px;
+  height: 40px;
+  margin: 0;
+  padding: 0;
+  border: none;
+  background-color: transparent;
+  color: rgba(33, 33, 33, 0.4);
+}
+
+.modal__form {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+  margin: 0;
+  padding: 0;
+}
+
+.modal__form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.modal__label {
+  color: rgba(33, 33, 33, 0.7);
+  font-family: Poppins, Arial, Helvetica, sans-serif;
+  font-weight: 500;
+  font-size: 16px;
+  height: 18px;
+}
+
+.modal__input {
+  border-radius: 8px;
+  padding: 16px 12px;
+  border-width: 1px;
+  font-family: Poppins, Arial, Helvetica, sans-serif;
+  font-weight: 500;
+  font-size: 20px;
+  color: rgba(33, 33, 33, 1);
+}
+
+.modal__input::placeholder {
+  color: rgba(33, 33, 33, 0.3);
+}
+
+.modal__save-button {
+  background-color: rgba(33, 33, 33, 1);
+  color: rgba(252, 245, 229, 1);
+  font-family: Poppins, Arial, Helvetica, sans-serif;
+  font-weight: 500;
+  font-size: 16px;
+  max-width: 156px;
+  height: 52px;
+  border-radius: 8px;
+  padding: 18px 32px;
+  gap: 8px;
+}
+
+@media screen and (max-width: 630px) {
+  .modal {
+    padding: 0 10px;
+  }
+
+  .modal__container {
+    gap: 24px;
+    padding: 12px;
+  }
+
+  .modal__head {
+    margin-bottom: 24px;
+  }
+
+  .modal__title {
+    font-size: 20px;
+  }
+
+  .modal__form {
+    gap: 24px;
+  }
+
+  .modal__label {
+    font-size: 16px;
+  }
+
+  .modal__input {
+    font-size: 16px;
+  }
+
+  .modal__save-button {
+    max-width: none;
+    width: 100%;
+  }
+}
