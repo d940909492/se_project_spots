@@ -23,11 +23,13 @@ This project is made so all the elements are displayed correctly on popular scre
  - HTML
  - CSS
  - Responsive design
+ - Javascript
  - More coming...
 <br />
 
-## Figma
-[Heres the link to the layout of Figma](https://www.figma.com/file/BBNm2bC3lj8QQMHlnqRsga/Sprint-3-Project-%E2%80%94-Spots?type=design&node-id=2%3A60&mode=design&t=afgNFybdorZO6cQo-1)
+## Figma step by step
+ 1. [Heres the link to the layout of Figma](https://www.figma.com/file/BBNm2bC3lj8QQMHlnqRsga/Sprint-3-Project-%E2%80%94-Spots?type=design&node-id=2%3A60&mode=design&t=afgNFybdorZO6cQo-1)
+ 2. [Heres the link of second step of Figma](https://www.figma.com/design/rGnA0eBcxYVOpA4bxmqlyu/Sprint-4-Project-Spots---March-2025?node-id=0-1&p=f&t=Qxtv8XIXC4fGMQrN-0)
 <br />
 <br />
 <br />
