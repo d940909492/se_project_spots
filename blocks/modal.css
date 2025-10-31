@@ -50,7 +50,11 @@
   padding: 0;
   border: none;
   background-color: transparent;
-  color: rgba(33, 33, 33, 0.4);
+  opacity: 0.4;
+}
+
+.modal__close-button:hover {
+  opacity: 1;
 }
 
 .modal__form {
@@ -82,7 +86,12 @@
   font-family: Poppins, Arial, Helvetica, sans-serif;
   font-weight: 500;
   font-size: 20px;
-  color: rgba(33, 33, 33, 1);
+  color: rgb(33, 33, 33);
+  opacity: 0.4;
+}
+
+.modal__input:hover {
+  opacity: 1;
 }
 
 .modal__input::placeholder {
@@ -100,6 +109,10 @@
   border-radius: 8px;
   padding: 18px 32px;
   gap: 8px;
+}
+
+.modal__save-button:hover {
+  opacity: 1;
 }
 
 @media screen and (max-width: 630px) {
