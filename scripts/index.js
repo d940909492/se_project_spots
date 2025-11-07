@@ -1,3 +1,37 @@
+/*        sprint 5 init        */
+const initialCards = [
+  {
+    name: "Val Thorens",
+    link: "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/spots/1-photo-by-moritz-feldmann-from-pexels.jpg",
+  },
+  {
+    name: "Restaurant terrace",
+    link: "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/spots/2-photo-by-ceiline-from-pexels.jpg",
+  },
+  {
+    name: "An outdoor cafe",
+    link: "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/spots/3-photo-by-tubanur-dogan-from-pexels.jpg",
+  },
+  {
+    name: "A very long bridge, over the forest and through the trees",
+    link: "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/spots/4-photo-by-maurice-laschet-from-pexels.jpg",
+  },
+  {
+    name: "Tunnel with morning light",
+    link: "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/spots/5-photo-by-van-anh-nguyen-from-pexels.jpg",
+  },
+  {
+    name: "Mountain house",
+    link: "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/spots/6-photo-by-moritz-feldmann-from-pexels.jpg",
+  },
+];
+
+initialCards.forEach((card) => {
+  console.log(card.name);
+});
+
+/*        sprint 5 inir        */
+
 //notes: new-post-modal and edit-profile-modal
 const EditProfileModal = document.querySelector("#edit-profile-modal");
 const NewPostModal = document.querySelector("#new-post-modal");
@@ -69,10 +103,5 @@ editProfileForm.addEventListener("submit", function (EvenObject) {
   editProfileModal.classList.remove("modal_is-opened");
 });
 
-/*
-I also want to complete the new post feature, but I think is too far,
-b/c not only i need to select elements, attach listener, extract inputs and prevent default action,
-i also need to create card by innerHTML, insert post data, re-attach listener and add to page
-*/
-
-// lastly, reason that I wrote too much is because i feel writing code far more interesting than writing HTML and CSS...lol
+/*        sprint 5        */
+/*--------------------------------------------------------------------------------------------------------*/
