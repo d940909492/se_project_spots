@@ -29,9 +29,11 @@ const initialCards = [
 initialCards.forEach((card) => {
   console.log(card.name);
 });
+/*        sprint 5 init        */
 
-/*        sprint 5 inir        */
+/*--------------------------------------------------------------------------------------------------------*/
 
+/*        sprint 4        */
 //notes: new-post-modal and edit-profile-modal
 const EditProfileModal = document.querySelector("#edit-profile-modal");
 const NewPostModal = document.querySelector("#new-post-modal");
@@ -103,5 +105,6 @@ editProfileForm.addEventListener("submit", function (EvenObject) {
   editProfileModal.classList.remove("modal_is-opened");
 });
 
+/*--------------------------------------------------------------------------------------------------------*/
 /*        sprint 5        */
 /*--------------------------------------------------------------------------------------------------------*/
