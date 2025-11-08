@@ -99,8 +99,8 @@ editProfileForm.addEventListener("submit", function (EventObject) {
 
 const newPostModal = document.querySelector("#new-post-modal");
 const addCardFormElement = newPostModal.querySelector(".modal__form");
-const NewPostnameInput = newPostModal.querySelector("#modal-image-link");
-const NewPostlinkInput = newPostModal.querySelector("#modal-caption-texts");
+const NewPostlinkInput = newPostModal.querySelector("#modal-image-link");
+const NewPostnameInput = newPostModal.querySelector("#modal-caption-texts");
 // Create the form submission handler.
 function handleAddCardSubmit(evt) {
   // Prevent default browser behavior.
@@ -126,24 +126,24 @@ addCardFormElement.addEventListener("submit", handleAddCardSubmit);
 /*
 const newPostModal = document.querySelector("#new-post-modal");
 const addCardFormElement = newPostModal.querySelector(".modal__form");
-const NewPostnameInput = newPostModal.querySelector("#modal-image-link");
-const NewPostlinkInput = newPostModal.querySelector("#modal-caption-texts");
+const NewPostlinkInput = newPostModal.querySelector("#modal-image-link");
+const NewPostnameInput = newPostModal.querySelector("#modal-caption-texts");
 const cardsList = document.querySelector(".cards__list");
 
 function handleAddCardSubmit(evt) {
   evt.preventDefault();
-  const captionText = NewPostlinkInput.value;
-  const imageUrl = NewPostnameInput.value;
+  const NewPostImageUrl = NewPostlinkInput.value;
+  const NewPostCaption = NewPostnameInput.value;
 
   const newCardHTML = `
     <li class="card">
       <img
-        src="${imageUrl}"
-        alt="${captionText}"
+        src="${NewPostImageUrl}"
+        alt="${NewPostCaption}"
         class="card__image"
       />
       <div class="card__content">
-        <h2 class="card__text">${captionText}</h2>
+        <h2 class="card__text">${NewPostCaption}</h2>
         <button class="card__like-button"></button>
       </div>
     </li>
