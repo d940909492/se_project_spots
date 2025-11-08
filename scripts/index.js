@@ -1,4 +1,5 @@
 /*        sprint 5 init        */
+const cardsList = document.querySelector(".cards__list");
 const initialCards = [
   {
     name: "Val Thorens",
@@ -95,7 +96,7 @@ editProfileForm.addEventListener("submit", function (EventObject) {
 // task 3: New Post form submission
 // Select the necessary form elements. You should select
 // these from inside the modal, not the document.
-/*
+
 const newPostModal = document.querySelector("#new-post-modal");
 const addCardFormElement = newPostModal.querySelector(".modal__form");
 const NewPostnameInput = newPostModal.querySelector("#modal-image-link");
@@ -115,21 +116,22 @@ function handleAddCardSubmit(evt) {
 
 // Create the submit listener.
 addCardFormElement.addEventListener("submit", handleAddCardSubmit);
-*/
+
 /*--------------------------------------------------------------------------------------------------------*/
 /*        sprint 5        */
 /*--------------------------------------------------------------------------------------------------------*/
 
 // Since I had already completed half of the task before it started, I'm now finishing the new post functionality.
 // I thought it might be complicated, but it turned out to be easier than i thought......
+/*
 const newPostModal = document.querySelector("#new-post-modal");
 const addCardFormElement = newPostModal.querySelector(".modal__form");
 const NewPostnameInput = newPostModal.querySelector("#modal-image-link");
 const NewPostlinkInput = newPostModal.querySelector("#modal-caption-texts");
 const cardsList = document.querySelector(".cards__list");
 
-function handleAddCardSubmit(EventObject) {
-  EventObject.preventDefault();
+function handleAddCardSubmit(evt) {
+  evt.preventDefault();
   const captionText = NewPostlinkInput.value;
   const imageUrl = NewPostnameInput.value;
 
@@ -154,6 +156,7 @@ function handleAddCardSubmit(EventObject) {
 }
 
 addCardFormElement.addEventListener("submit", handleAddCardSubmit);
+*/
 
 /*--------------------------------------------------------------------------------------------------------*/
 /* Like Button */
