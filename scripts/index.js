@@ -60,24 +60,11 @@ NewPostCloseBtn.addEventListener("click", function () {
   NewPostModal.classList.remove("modal_is-opened");
 });
 
-// I feel this project is too easy, so Ive decided to add something based on what I learnt during my self-study
-const CardLikeBtn = document.querySelectorAll(".card__like-button");
-
-let isLikeBtnClicked = false;
-
-CardLikeBtn.forEach(function (button) {
-  button.addEventListener("click", function () {
-    if (isLikeBtnClicked === false) {
-      button.setAttribute(
-        "style",
-        "background-image: url(../images/heart.png); opacity: 1;"
-      );
-    } else {
-      button.removeAttribute("style");
-    }
-    isLikeBtnClicked = !isLikeBtnClicked;
-  });
-});
+/*--------------------------------------------------------------------------------------------------------*/
+/*        sprint 5        */
+/*--------------------------------------------------------------------------------------------------------*/
+// task 1 and 2: Filling the form fields when opening the modal and Edit Profile form submission
+//oops...I didnt expect I already completed these tasks in the last sprint...
 
 const profileName = document.querySelector(".profile__name");
 const profileDescription = document.querySelector(".profile__description");
@@ -85,26 +72,100 @@ const profileDescription = document.querySelector(".profile__description");
 const editProfileModal = document.querySelector("#edit-profile-modal");
 const editProfileForm = editProfileModal.querySelector(".modal__form");
 
-const nameInput = editProfileModal.querySelector("#modal-profile-name");
+const ProfilenameInput = editProfileModal.querySelector("#modal-profile-name");
 const descriptionInput = editProfileModal.querySelector(
   "#modal-profile-description"
 );
 const editProfileBtn = document.querySelector(".profile__button-secondary");
 
 editProfileBtn.addEventListener("click", function () {
-  nameInput.value = profileName.textContent;
+  ProfilenameInput.value = profileName.textContent;
   descriptionInput.value = profileDescription.textContent;
 
   editProfileModal.classList.add("modal_is-opened");
 });
 
-editProfileForm.addEventListener("submit", function (EvenObject) {
-  EvenObject.preventDefault();
-  profileName.textContent = nameInput.value;
+editProfileForm.addEventListener("submit", function (EventObject) {
+  EventObject.preventDefault();
+  profileName.textContent = ProfilenameInput.value;
   profileDescription.textContent = descriptionInput.value;
   editProfileModal.classList.remove("modal_is-opened");
 });
 
+// task 3: New Post form submission
+// Select the necessary form elements. You should select
+// these from inside the modal, not the document.
+/*
+const newPostModal = document.querySelector("#new-post-modal");
+const addCardFormElement = newPostModal.querySelector(".modal__form");
+const NewPostnameInput = newPostModal.querySelector("#modal-image-link");
+const NewPostlinkInput = newPostModal.querySelector("#modal-caption-texts");
+// Create the form submission handler.
+function handleAddCardSubmit(evt) {
+  // Prevent default browser behavior.
+  evt.preventDefault();
+
+  // Log both input values to the console.
+  console.log("New Post name:", NewPostnameInput.value);
+  console.log("New Post image link:", NewPostlinkInput.value);
+
+  // Close the modal.
+  newPostModal.classList.remove("modal_is-opened");
+}
+
+// Create the submit listener.
+addCardFormElement.addEventListener("submit", handleAddCardSubmit);
+*/
 /*--------------------------------------------------------------------------------------------------------*/
 /*        sprint 5        */
+/*--------------------------------------------------------------------------------------------------------*/
+
+// Since I had already completed half of the task before it started, I'm now finishing the new post functionality.
+// I thought it might be complicated, but it turned out to be easier than i thought......
+const newPostModal = document.querySelector("#new-post-modal");
+const addCardFormElement = newPostModal.querySelector(".modal__form");
+const NewPostnameInput = newPostModal.querySelector("#modal-image-link");
+const NewPostlinkInput = newPostModal.querySelector("#modal-caption-texts");
+const cardsList = document.querySelector(".cards__list");
+
+function handleAddCardSubmit(EventObject) {
+  EventObject.preventDefault();
+  const captionText = NewPostlinkInput.value;
+  const imageUrl = NewPostnameInput.value;
+
+  const newCardHTML = `
+    <li class="card">
+      <img
+        src="${imageUrl}"
+        alt="${captionText}"
+        class="card__image"
+      />
+      <div class="card__content">
+        <h2 class="card__text">${captionText}</h2>
+        <button class="card__like-button"></button>
+      </div>
+    </li>
+  `;
+  cardsList.innerHTML = newCardHTML + cardsList.innerHTML;
+  NewPostnameInput.value = "";
+  NewPostlinkInput.value = "";
+
+  newPostModal.classList.remove("modal_is-opened");
+}
+
+addCardFormElement.addEventListener("submit", handleAddCardSubmit);
+
+/*--------------------------------------------------------------------------------------------------------*/
+/* Like Button */
+/*--------------------------------------------------------------------------------------------------------*/
+
+cardsList.addEventListener("click", function (EventObject) {
+  if (EventObject.target.classList.contains("card__like-button")) {
+    EventObject.preventDefault();
+    EventObject.target.classList.toggle("card__like-button_click");
+  }
+});
+
+/*--------------------------------------------------------------------------------------------------------*/
+/* Like Button */
 /*--------------------------------------------------------------------------------------------------------*/

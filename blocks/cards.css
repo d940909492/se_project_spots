@@ -66,6 +66,11 @@
   opacity: 1;
 }
 
+.card__like-button_click {
+  background-image: url(../images/heart.png);
+  opacity: 1;
+}
+
 @media screen and (max-width: 630px) {
   .cards__list {
     grid-template-columns: repeat(auto-fit, 288px);
