@@ -12,7 +12,7 @@
   <body>
     <div class="page">
       <header class="header">
-        <img src="./images/logo.svg" alt="spots__logo" class="header__logo" />
+        <img src="./images/logo.svg" alt="Spots logo" class="header__logo" />
       </header>
       <main class="content">
         <section class="profile page__content">
@@ -90,6 +90,7 @@
                 id="modal-profile-name"
                 placeholder="Type your name"
                 class="modal__input"
+                required
               />
             </div>
 
@@ -127,6 +128,7 @@
                 id="modal-image-link"
                 placeholder="Paste a link to the picture"
                 class="modal__input"
+                required
               />
             </div>
 
@@ -147,11 +149,18 @@
       </div>
 
       <!-- The preview image modal -->
-      <div class="modal modal__preview" id="preview-image-modal">
+      <div
+        class="modal modal__close-button_type_preview"
+        id="preview-image-modal"
+      >
         <div class="modal__preview_container">
           <button class="modal__preview_close-button"></button>
-          <image src="" alt="" class="modal__image"></image>
-          <p class="modal__caption">testing image 1</p>
+          <img
+            class="modal__image"
+            src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///ywAAAAAAQABAAACAUwAOw=="
+            alt=""
+          />
+          <p class="modal__caption"></p>
         </div>
       </div>
       <!------------------------------------------------------------------------------------>

@@ -2,19 +2,19 @@
 
 // for init
 const cardsList = document.querySelector(".cards__list");
-const CardTemplate = document
+const cardTemplate = document
   .querySelector("#card-template")
   .content.querySelector(".card");
 
 // count how many cards left
-let CardCount = 0;
+let cardCount = 0;
 
 // select for display texts when no post
 const noCardsElement = document.querySelector(".no-cards");
 
 // Modals
-const EditProfileModal = document.querySelector("#edit-profile-modal");
-const NewPostModal = document.querySelector("#new-post-modal");
+const editProfileModal = document.querySelector("#edit-profile-modal");
+const newPostModal = document.querySelector("#new-post-modal");
 const previewmodal = document.querySelector("#preview-image-modal");
 
 // button for opening modal
@@ -22,10 +22,10 @@ const EditProfileBtn = document.querySelector(".profile__button-secondary");
 const NewPostBtn = document.querySelector(".profile__button-large");
 
 // button for closing modal
-const EditProfileCloseBtn = EditProfileModal.querySelector(
+const EditProfileCloseBtn = editProfileModal.querySelector(
   ".modal__close-button"
 );
-const NewPostCloseBtn = NewPostModal.querySelector(".modal__close-button");
+const NewPostCloseBtn = newPostModal.querySelector(".modal__close-button");
 const PreviewCloseBtn = previewmodal.querySelector(
   ".modal__preview_close-button"
 );
@@ -35,9 +35,9 @@ const profileName = document.querySelector(".profile__name");
 const profileDescription = document.querySelector(".profile__description");
 
 // select user input
-const editProfileForm = EditProfileModal.querySelector(".modal__form");
-const ProfilenameInput = EditProfileModal.querySelector("#modal-profile-name");
-const descriptionInput = EditProfileModal.querySelector(
+const editProfileForm = editProfileModal.querySelector(".modal__form");
+const ProfilenameInput = editProfileModal.querySelector("#modal-profile-name");
+const descriptionInput = editProfileModal.querySelector(
   "#modal-profile-description"
 );
 
@@ -83,7 +83,7 @@ It also allow users click like button for heart's color change to red,
 and delete button for delete a post
 */
 function getCardElement(data) {
-  const cardElement = CardTemplate.cloneNode(true);
+  const cardElement = cardTemplate.cloneNode(true);
   const cardTitle = cardElement.querySelector(".card__text");
   const cardImage = cardElement.querySelector(".card__image");
 
@@ -105,21 +105,21 @@ function getCardElement(data) {
 
   // When the user clicks a card’s trashcan-shaped delete button, the card should be removed from the DOM
   cardDeleteBtn.addEventListener("click", function (evt) {
-    event.stopPropagation();
-    CardCount -= 1;
+    evt.stopPropagation();
+    cardCount -= 1;
     updateNoCards();
     cardElement.remove();
   });
 
   //When the user clicks a card’s image, a modal should appear showing a larger version of the image and its title
-  cardElement.addEventListener("click", function () {
+  cardImage.addEventListener("click", function () {
     PreviewImage.src = data.link;
     PreviewImage.alt = data.name;
     PreviewCaption.textContent = data.name;
     openModal(previewmodal);
   });
 
-  CardCount += 1;
+  cardCount += 1;
 
   return cardElement;
 }
@@ -150,22 +150,18 @@ function closeModal(modal) {
 
 /*        sprint 4        */
 //notes: new-post-modal and edit-profile-modal
-EditProfileBtn.addEventListener("click", function () {
-  //EditProfileModal.classList.add("modal_is-opened");
-  openModal(EditProfileModal);
-});
 NewPostBtn.addEventListener("click", function () {
-  //NewPostModal.classList.add("modal_is-opened");
-  openModal(NewPostModal);
+  //newPostModal.classList.add("modal_is-opened");
+  openModal(newPostModal);
 });
 
 EditProfileCloseBtn.addEventListener("click", function () {
-  //EditProfileModal.classList.remove("modal_is-opened");
-  closeModal(EditProfileModal);
+  //editProfileModal.classList.remove("modal_is-opened");
+  closeModal(editProfileModal);
 });
 NewPostCloseBtn.addEventListener("click", function () {
-  //NewPostModal.classList.remove("modal_is-opened");
-  closeModal(NewPostModal);
+  //newPostModal.classList.remove("modal_is-opened");
+  closeModal(newPostModal);
 });
 
 // sprint 6
@@ -183,24 +179,24 @@ EditProfileBtn.addEventListener("click", function () {
   ProfilenameInput.value = profileName.textContent;
   descriptionInput.value = profileDescription.textContent;
 
-  //EditProfileModal.classList.add("modal_is-opened");
-  openModal(EditProfileModal);
+  //editProfileModal.classList.add("modal_is-opened");
+  openModal(editProfileModal);
 });
 
 editProfileForm.addEventListener("submit", function (EventObject) {
   EventObject.preventDefault();
   profileName.textContent = ProfilenameInput.value;
   profileDescription.textContent = descriptionInput.value;
-  //EditProfileModal.classList.remove("modal_is-opened");
-  closeModal(EditProfileModal);
+  //editProfileModal.classList.remove("modal_is-opened");
+  closeModal(editProfileModal);
 });
 
 // task 3: New Post form submission
 // Select the necessary form elements. You should select
 // these from inside the modal, not the document.
-const addCardFormElement = NewPostModal.querySelector(".modal__form");
-const NewPostlinkInput = NewPostModal.querySelector("#modal-image-link");
-const NewPostnameInput = NewPostModal.querySelector("#modal-caption-texts");
+const addCardFormElement = newPostModal.querySelector(".modal__form");
+const NewPostlinkInput = newPostModal.querySelector("#modal-image-link");
+const NewPostnameInput = newPostModal.querySelector("#modal-caption-texts");
 
 /*
 task 4:
@@ -229,8 +225,10 @@ function handleAddCardSubmit(evt) {
 
   updateNoCards();
 
-  // Close the modal.
-  //NewPostModal.classList.remove("modal_is-opened");
+  // Reset the form to clear all inputs
+  evt.target.reset();
+
+  // Then close the modal
   closeModal(NewPostModal);
 }
 
@@ -242,50 +240,11 @@ addCardFormElement.addEventListener("submit", handleAddCardSubmit);
 /*--------------------------------------------------------------------------------------------------------*/
 
 /*--------------------------------------------------------------------------------------------------------*/
-/*   New post feature with innerHTML method   */
-/*--------------------------------------------------------------------------------------------------------*/
-/*
-const NewPostModal = document.querySelector("#new-post-modal");
-const addCardFormElement = NewPostModal.querySelector(".modal__form");
-const NewPostlinkInput = NewPostModal.querySelector("#modal-image-link");
-const NewPostnameInput = NewPostModal.querySelector("#modal-caption-texts");
-
-function handleAddCardSubmit(evt) {
-  evt.preventDefault();
-  const NewPostImageUrl = NewPostlinkInput.value;
-  const NewPostCaption = NewPostnameInput.value;
-
-  const newCardHTML = `
-    <li class="card">
-      <img
-        src="${NewPostImageUrl}"
-        alt="${NewPostCaption}"
-        class="card__image"
-      />
-      <div class="card__content">
-        <h2 class="card__text">${NewPostCaption}</h2>
-        <button class="card__like-button"></button>
-      </div>
-    </li>
-  `;
-  cardsList.innerHTML = newCardHTML + cardsList.innerHTML;
-  NewPostnameInput.value = "";
-  NewPostlinkInput.value = "";
-
-  //NewPostModal.classList.remove("modal_is-opened");
-  closeModal(NewPostModal);
-}
-
-addCardFormElement.addEventListener("submit", handleAddCardSubmit);
-*/
-/*--------------------------------------------------------------------------------------------------------*/
-
-/*--------------------------------------------------------------------------------------------------------*/
 /*   extra function such like helper function or other features   */
 /*--------------------------------------------------------------------------------------------------------*/
 // helper function for checking number of cards
 function updateNoCards() {
-  if (CardCount <= 0) {
+  if (cardCount <= 0) {
     noCardsElement.classList.remove("no-cards_hidden");
   } else {
     noCardsElement.classList.add("no-cards_hidden");

@@ -24,6 +24,7 @@
   height: 413px;
   border-radius: 8px;
   object-fit: cover;
+  cursor: pointer;
 }
 
 .card__content {
@@ -31,6 +32,7 @@
   padding: 0;
   display: flex;
   justify-content: space-between;
+  align-items: center;
 }
 
 .card__text {
@@ -46,7 +48,7 @@
   white-space: nowrap;
   overflow: hidden;
   max-width: calc(100% - 40px);
-  height: 24px;
+  line-height: 1.4;
 }
 
 .card__like-button {
@@ -62,6 +64,7 @@
   margin: 12px 0 0;
   padding: 0;
   transition: 0.3s;
+  cursor: pointer;
 }
 
 .card__like-button:hover {
@@ -96,6 +99,7 @@
   right: 10px;
   position: absolute;
   transition: 0.3s;
+  cursor: pointer;
 }
 
 .card__delete-button:hover {
@@ -124,7 +128,6 @@
   .cards__list {
     grid-template-columns: repeat(auto-fit, 288px);
     gap: 20px;
-    padding: 20px;
   }
 
   .card {
@@ -135,7 +138,7 @@
     height: 288px;
   }
 
-  .card__name {
+  .card__text {
     font-size: 16px;
   }
 

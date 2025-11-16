@@ -14,8 +14,8 @@
 }
 
 .profile__avatar {
-  width: 190;
-  height: 190;
+  width: 190px;
+  height: 190px;
   border-radius: 8px;
 }
 
@@ -74,14 +74,15 @@
   opacity: 0.7;
   line-height: 1;
   letter-spacing: 0;
-  width: 107;
-  height: 16;
+  line-height: 1.5;
+  padding: 0.5em 1em;
   color: rgba(33, 33, 33, 1);
   font-family: Poppins, Arial, Helvetica, sans-serif;
   font-weight: 500;
   font-size: 16px;
   line-height: 1;
   letter-spacing: 0;
+  cursor: pointer;
 }
 
 .profile__button-secondary:hover {
@@ -111,6 +112,7 @@
   font-size: 16px;
   line-height: 1;
   letter-spacing: 0;
+  cursor: pointer;
 }
 
 .profile__button-large:hover {
