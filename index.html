@@ -49,80 +49,22 @@
         </section>
 
         <section class="cards page__content">
+          <div class="no-cards">
+            <p class="no-cards__text">No Post yet, please some Post</p>
+          </div>
           <ul class="cards__list">
-            <li class="card">
-              <img
-                src="./images/1-photo-by-moritz-feldmann-from-pexels.jpg"
-                alt="Val Thorens image"
-                class="card__image"
-              />
-              <div class="card__content">
-                <h2 class="card__text">Val Thorens</h2>
-                <button class="card__like-button"></button>
-              </div>
-            </li>
-
-            <li class="card">
-              <img
-                src="./images/2-photo-by-ceiline-from-pexels.jpg"
-                alt="Restaurant terrace image"
-                class="card__image"
-              />
-              <div class="card__content">
-                <h2 class="card__text">Restaurant terrace</h2>
-                <button class="card__like-button"></button>
-              </div>
-            </li>
-
-            <li class="card">
-              <img
-                src="./images/3-photo-by-tubanur-dogan-from-pexels.jpg"
-                alt="An outdoor cafe image"
-                class="card__image"
-              />
-              <div class="card__content">
-                <h2 class="card__text">An outdoor cafe</h2>
-                <button class="card__like-button"></button>
-              </div>
-            </li>
-
-            <li class="card">
-              <img
-                src="./images/4-photo-by-maurice-laschet-from-pexels.jpg"
-                alt="A very long bridge, over the forest... image"
-                class="card__image"
-              />
-              <div class="card__content">
-                <h2 class="card__text">
-                  A very long bridge, over the forest...
-                </h2>
-                <button class="card__like-button"></button>
-              </div>
-            </li>
-
-            <li class="card">
-              <img
-                src="./images/5-photo-by-van-anh-nguyen-from-pexels.jpg"
-                alt="Tunnel with morning light image"
-                class="card__image"
-              />
-              <div class="card__content">
-                <h2 class="card__text">Tunnel with morning light</h2>
-                <button class="card__like-button"></button>
-              </div>
-            </li>
-
-            <li class="card">
-              <img
-                src="./images/6-photo-by-moritz-feldmann-from-pexels.jpg"
-                alt="Mountain house image"
-                class="card__image"
-              />
-              <div class="card__content">
-                <h2 class="card__text">Mountain house</h2>
-                <button class="card__like-button"></button>
-              </div>
-            </li>
+            <!-- sprint 6 -->
+            <!-- <template> element, it have the same elements and classes as the existing card elements -->
+            <template id="card-template">
+              <li class="card">
+                <button class="card__delete-button" type="button"></button>
+                <img src="" alt="" class="card__image" />
+                <div class="card__content">
+                  <h2 class="card__text"></h2>
+                  <button class="card__like-button"></button>
+                </div>
+              </li>
+            </template>
           </ul>
         </section>
       </main>
@@ -162,7 +104,6 @@
                 class="modal__input"
               />
             </div>
-
             <button type="submit" class="modal__save-button">Save</button>
           </form>
         </div>
@@ -200,11 +141,20 @@
                 class="modal__input"
               />
             </div>
-
             <button type="submit" class="modal__save-button">Save</button>
           </form>
         </div>
       </div>
+
+      <!-- The preview image modal -->
+      <div class="modal modal__preview" id="preview-image-modal">
+        <div class="modal__preview_container">
+          <button class="modal__preview_close-button"></button>
+          <image src="" alt="" class="modal__image"></image>
+          <p class="modal__caption">testing image 1</p>
+        </div>
+      </div>
+      <!------------------------------------------------------------------------------------>
     </div>
     <script src="./scripts/index.js"></script>
   </body>
