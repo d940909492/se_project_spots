@@ -229,7 +229,7 @@ function handleAddCardSubmit(evt) {
   evt.target.reset();
 
   // Then close the modal
-  closeModal(NewPostModal);
+  closeModal(newPostModal);
 }
 
 // Create the submit listener.
