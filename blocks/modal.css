@@ -14,7 +14,7 @@
   padding: 0 10px;
 }
 
-.modal__close-button_type_preview {
+.modal__preview_fix {
   padding: 0 16px;
 }
 
@@ -106,6 +106,19 @@
   color: rgba(33, 33, 33, 0.3);
 }
 
+.modal__input-error {
+  font-family: Poppins, Arial, Helvetica, sans-serif;
+  font-weight: 500;
+  font-size: 16px;
+  color: rgba(255, 0, 0, 0.7);
+  margin: 0;
+  padding: 0;
+}
+
+.modal__input_type_error {
+  border: 1px solid rgba(255, 0, 0, 0.6);
+}
+
 .modal__save-button {
   background-color: rgba(33, 33, 33, 1);
   color: rgba(252, 245, 229, 1);
@@ -122,6 +135,10 @@
 
 .modal__save-button:hover {
   opacity: 0.8;
+}
+
+.modal__button_disabled {
+  opacity: 0.5;
 }
 
 .modal__preview_container {

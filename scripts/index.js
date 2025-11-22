@@ -13,6 +13,7 @@ let cardCount = 0;
 const noCardsElement = document.querySelector(".no-cards");
 
 // Modals
+const allModal = Array.from(document.querySelectorAll(".modal"));
 const editProfileModal = document.querySelector("#edit-profile-modal");
 const newPostModal = document.querySelector("#new-post-modal");
 const previewmodal = document.querySelector("#preview-image-modal");
@@ -138,23 +139,19 @@ updateNoCards();
 //openModal and closeModal functions
 function openModal(modal) {
   modal.classList.add("modal_is-opened");
+  document.addEventListener("keydown", pressEscapetoClose);
 }
 
 function closeModal(modal) {
   modal.classList.remove("modal_is-opened");
+  document.removeEventListener("keydown", pressEscapetoClose);
 }
 
 /*--------------------------------------------------------------------------------------------------------*/
 
 /*--------------------------------------------------------------------------------------------------------*/
 
-/*        sprint 4        */
-//notes: new-post-modal and edit-profile-modal
-NewPostBtn.addEventListener("click", function () {
-  //newPostModal.classList.add("modal_is-opened");
-  openModal(newPostModal);
-});
-
+//notes: close button for all modal
 EditProfileCloseBtn.addEventListener("click", function () {
   //editProfileModal.classList.remove("modal_is-opened");
   closeModal(editProfileModal);
@@ -173,13 +170,25 @@ PreviewCloseBtn.addEventListener("click", function () {
 /*--------------------------------------------------------------------------------------------------------*/
 /*        sprint 5 and 6        */
 /*--------------------------------------------------------------------------------------------------------*/
-// task 1 and 2: Filling the form fields when opening the modal and Edit Profile form submission
-
+// Filling the form fields when opening the modal and Edit Profile form submission
 EditProfileBtn.addEventListener("click", function () {
   ProfilenameInput.value = profileName.textContent;
   descriptionInput.value = profileDescription.textContent;
 
-  //editProfileModal.classList.add("modal_is-opened");
+  const inputList = Array.from(
+    editProfileForm.querySelectorAll(".modal__input")
+  );
+
+  const buttonElement = editProfileForm.querySelector(".modal__save-button");
+
+  // reset Error Messages
+  inputList.forEach((inputElement) => {
+    hideInputError(editProfileForm, inputElement, settings);
+  });
+
+  // check Button State
+  toggleButtonState(inputList, buttonElement, settings);
+
   openModal(editProfileModal);
 });
 
@@ -191,12 +200,29 @@ editProfileForm.addEventListener("submit", function (EventObject) {
   closeModal(editProfileModal);
 });
 
-// task 3: New Post form submission
+// New Post modal
 // Select the necessary form elements. You should select
 // these from inside the modal, not the document.
 const addCardFormElement = newPostModal.querySelector(".modal__form");
 const NewPostlinkInput = newPostModal.querySelector("#modal-image-link");
 const NewPostnameInput = newPostModal.querySelector("#modal-caption-texts");
+
+// click for open new post modal
+NewPostBtn.addEventListener("click", function (evt) {
+  const formElement = newPostModal.querySelector(".modal__form");
+  const inputList = Array.from(formElement.querySelectorAll(".modal__input"));
+  const buttonElement = formElement.querySelector(".modal__save-button");
+
+  // clear error message
+  inputList.forEach((inputElement) => {
+    hideInputError(formElement, inputElement, settings);
+  });
+
+  //check button state
+  toggleButtonState(inputList, buttonElement, settings);
+
+  openModal(newPostModal);
+});
 
 /*
 task 4:
@@ -228,6 +254,11 @@ function handleAddCardSubmit(evt) {
   // Reset the form to clear all inputs
   evt.target.reset();
 
+  // reset validation after first submit
+  const submitButton = evt.target.querySelector(".modal__save-button");
+  submitButton.classList.add("button_inactive");
+  submitButton.disabled = true;
+
   // Then close the modal
   closeModal(newPostModal);
 }
@@ -237,6 +268,36 @@ addCardFormElement.addEventListener("submit", handleAddCardSubmit);
 
 /*--------------------------------------------------------------------------------------------------------*/
 /*        sprint 5 and 6 end        */
+/*--------------------------------------------------------------------------------------------------------*/
+
+/*--------------------------------------------------------------------------------------------------------*/
+/*        sprint 7        */
+/*--------------------------------------------------------------------------------------------------------*/
+
+// Modal UX improvements
+// Closing the modal by clicking on the overlay
+allModal.forEach(function (modalElement) {
+  modalElement.addEventListener("click", (event) => {
+    if (event.target.classList.contains("modal")) {
+      closeModal(modalElement);
+    }
+  });
+});
+
+// Closing the modal by pressing the Escape key
+// this function allows the users to close the modal by pressing the Escape key
+// this function fires when open the modal
+function pressEscapetoClose(event) {
+  if (event.key === "Escape") {
+    const openedModal = document.querySelector(".modal_is-opened");
+    if (openedModal) {
+      closeModal(openedModal);
+    }
+  }
+}
+
+/*--------------------------------------------------------------------------------------------------------*/
+/*        sprint 7 end        */
 /*--------------------------------------------------------------------------------------------------------*/
 
 /*--------------------------------------------------------------------------------------------------------*/
