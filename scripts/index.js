@@ -13,10 +13,10 @@ let cardCount = 0;
 const noCardsElement = document.querySelector(".no-cards");
 
 // Modals
-const allModal = Array.from(document.querySelectorAll(".modal"));
+const allModals = Array.from(document.querySelectorAll(".modal"));
 const editProfileModal = document.querySelector("#edit-profile-modal");
 const newPostModal = document.querySelector("#new-post-modal");
-const previewmodal = document.querySelector("#preview-image-modal");
+const previewModal = document.querySelector("#preview-image-modal");
 
 // button for opening modal
 const EditProfileBtn = document.querySelector(".profile__button-secondary");
@@ -27,8 +27,8 @@ const EditProfileCloseBtn = editProfileModal.querySelector(
   ".modal__close-button"
 );
 const NewPostCloseBtn = newPostModal.querySelector(".modal__close-button");
-const PreviewCloseBtn = previewmodal.querySelector(
-  ".modal__preview_close-button"
+const PreviewCloseBtn = previewModal.querySelector(
+  ".modal__close-button_type_preview"
 );
 
 // select current input
@@ -37,14 +37,14 @@ const profileDescription = document.querySelector(".profile__description");
 
 // select user input
 const editProfileForm = editProfileModal.querySelector(".modal__form");
-const ProfilenameInput = editProfileModal.querySelector("#modal-profile-name");
+const profileNameInput = editProfileModal.querySelector("#modal-profile-name");
 const descriptionInput = editProfileModal.querySelector(
   "#modal-profile-description"
 );
 
 // select caption and select image for preview modal
-const PreviewCaption = previewmodal.querySelector(".modal__caption");
-const PreviewImage = previewmodal.querySelector(".modal__image");
+const PreviewCaption = previewModal.querySelector(".modal__caption");
+const PreviewImage = previewModal.querySelector(".modal__image");
 
 const initialCards = [
   {
@@ -99,9 +99,9 @@ function getCardElement(data) {
   cardImage.alt = data.name;
 
   // When the user clicks on the card’s heart-shaped “like button,” the heart's color should change
-  cardLikeBtn.addEventListener("click", function (EventObject) {
-    EventObject.stopPropagation();
-    EventObject.target.classList.toggle("card__like-button_click");
+  cardLikeBtn.addEventListener("click", function (event) {
+    event.stopPropagation();
+    event.target.classList.toggle("card__like-button_click");
   });
 
   // When the user clicks a card’s trashcan-shaped delete button, the card should be removed from the DOM
@@ -117,7 +117,7 @@ function getCardElement(data) {
     PreviewImage.src = data.link;
     PreviewImage.alt = data.name;
     PreviewCaption.textContent = data.name;
-    openModal(previewmodal);
+    openModal(previewModal);
   });
 
   cardCount += 1;
@@ -139,12 +139,12 @@ updateNoCards();
 //openModal and closeModal functions
 function openModal(modal) {
   modal.classList.add("modal_is-opened");
-  document.addEventListener("keydown", pressEscapetoClose);
+  document.addEventListener("keydown", closeOnEscape);
 }
 
 function closeModal(modal) {
   modal.classList.remove("modal_is-opened");
-  document.removeEventListener("keydown", pressEscapetoClose);
+  document.removeEventListener("keydown", closeOnEscape);
 }
 
 /*--------------------------------------------------------------------------------------------------------*/
@@ -164,7 +164,7 @@ NewPostCloseBtn.addEventListener("click", function () {
 // sprint 6
 // close button for preview modal
 PreviewCloseBtn.addEventListener("click", function () {
-  closeModal(previewmodal);
+  closeModal(previewModal);
 });
 
 /*--------------------------------------------------------------------------------------------------------*/
@@ -172,7 +172,7 @@ PreviewCloseBtn.addEventListener("click", function () {
 /*--------------------------------------------------------------------------------------------------------*/
 // Filling the form fields when opening the modal and Edit Profile form submission
 EditProfileBtn.addEventListener("click", function () {
-  ProfilenameInput.value = profileName.textContent;
+  profileNameInput.value = profileName.textContent;
   descriptionInput.value = profileDescription.textContent;
 
   const inputList = Array.from(
@@ -194,7 +194,7 @@ EditProfileBtn.addEventListener("click", function () {
 
 editProfileForm.addEventListener("submit", function (EventObject) {
   EventObject.preventDefault();
-  profileName.textContent = ProfilenameInput.value;
+  profileName.textContent = profileNameInput.value;
   profileDescription.textContent = descriptionInput.value;
   //editProfileModal.classList.remove("modal_is-opened");
   closeModal(editProfileModal);
@@ -204,23 +204,11 @@ editProfileForm.addEventListener("submit", function (EventObject) {
 // Select the necessary form elements. You should select
 // these from inside the modal, not the document.
 const addCardFormElement = newPostModal.querySelector(".modal__form");
-const NewPostlinkInput = newPostModal.querySelector("#modal-image-link");
-const NewPostnameInput = newPostModal.querySelector("#modal-caption-texts");
+const newPostLinkInput = newPostModal.querySelector("#modal-image-link");
+const newPostNameInput = newPostModal.querySelector("#modal-caption-texts");
 
 // click for open new post modal
-NewPostBtn.addEventListener("click", function (evt) {
-  const formElement = newPostModal.querySelector(".modal__form");
-  const inputList = Array.from(formElement.querySelectorAll(".modal__input"));
-  const buttonElement = formElement.querySelector(".modal__save-button");
-
-  // clear error message
-  inputList.forEach((inputElement) => {
-    hideInputError(formElement, inputElement, settings);
-  });
-
-  //check button state
-  toggleButtonState(inputList, buttonElement, settings);
-
+NewPostBtn.addEventListener("click", function () {
   openModal(newPostModal);
 });
 
@@ -236,13 +224,13 @@ function handleAddCardSubmit(evt) {
   evt.preventDefault();
 
   // Log both input values to the console.
-  console.log("New Post name:", NewPostnameInput.value);
-  console.log("New Post image link:", NewPostlinkInput.value);
+  console.log("New Post name:", newPostNameInput.value);
+  console.log("New Post image link:", newPostLinkInput.value);
 
   // data of user input
   const UserInput = {
-    name: NewPostnameInput.value,
-    link: NewPostlinkInput.value,
+    name: newPostNameInput.value,
+    link: newPostLinkInput.value,
   };
 
   // use getCardElement() function to create the new card and add then add it to the DOM
@@ -255,9 +243,12 @@ function handleAddCardSubmit(evt) {
   evt.target.reset();
 
   // reset validation after first submit
-  const submitButton = evt.target.querySelector(".modal__save-button");
-  submitButton.classList.add("button_inactive");
-  submitButton.disabled = true;
+  const formElement = newPostModal.querySelector(".modal__form");
+  const inputList = Array.from(formElement.querySelectorAll(".modal__input"));
+  const buttonElement = formElement.querySelector(".modal__save-button");
+
+  //check button state
+  toggleButtonState(inputList, buttonElement, settings);
 
   // Then close the modal
   closeModal(newPostModal);
@@ -276,7 +267,7 @@ addCardFormElement.addEventListener("submit", handleAddCardSubmit);
 
 // Modal UX improvements
 // Closing the modal by clicking on the overlay
-allModal.forEach(function (modalElement) {
+allModals.forEach(function (modalElement) {
   modalElement.addEventListener("click", (event) => {
     if (event.target.classList.contains("modal")) {
       closeModal(modalElement);
@@ -287,7 +278,8 @@ allModal.forEach(function (modalElement) {
 // Closing the modal by pressing the Escape key
 // this function allows the users to close the modal by pressing the Escape key
 // this function fires when open the modal
-function pressEscapetoClose(event) {
+function closeOnEscape(event) {
+  console.log(`key press: ${event.key}`);
   if (event.key === "Escape") {
     const openedModal = document.querySelector(".modal_is-opened");
     if (openedModal) {

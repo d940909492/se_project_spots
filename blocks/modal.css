@@ -14,7 +14,7 @@
   padding: 0 10px;
 }
 
-.modal__preview_fix {
+.modal_type_preview {
   padding: 0 16px;
 }
 
@@ -141,7 +141,7 @@
   opacity: 0.5;
 }
 
-.modal__preview_container {
+.modal__preview-container {
   position: relative;
 }
 
@@ -166,7 +166,7 @@
   display: inline-block;
 }
 
-.modal__preview_close-button {
+.modal__close-button_type_preview {
   background-image: url(../images/close_pw.svg);
   background-repeat: no-repeat;
   background-position: center;
@@ -186,7 +186,7 @@
   cursor: pointer;
 }
 
-.modal__preview_close-button:hover {
+.modal__close-button_type_preview:hover {
   opacity: 0.5;
 }
 
@@ -225,7 +225,7 @@
     width: 100%;
   }
 
-  .modal__preview_close-button {
+  .modal__close-button_type_preview {
     top: -47.5px;
     right: 0;
   }
@@ -240,7 +240,7 @@
 }
 
 @media screen and (max-width: 380px) {
-  .modal__preview_close-button {
+  .modal__close-button_type_preview {
     margin: 0;
   }
 
