@@ -43,7 +43,7 @@ This project is made so all the elements are displayed correctly on popular scre
 ## Project Pitch Video
  1. Spots Stage 2  - Check out [this video](https://www.loom.com/share/cc55c06b7bdc4d9096f5b20eba818397?sid=b7bdab83-cc92-4104-9cb4-7efefabe8f6d), where I describe my 
  project and some challenges I faced while building it.
- 2. Spots Stage 9  - Check out [this video](https://www.loom.com/share/6cc982f5998d497eba6ecf711b62c8d2), where I describe my 
+ 2. Spots Stage 9  - Check out [this video](https://www.loom.com/share/7340b589063149b19a7d56250dc204c6), where I describe my 
  project and some challenges I faced while building it.
 
 <br />
