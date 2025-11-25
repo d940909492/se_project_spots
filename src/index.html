@@ -5,20 +5,22 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="description" content="idk for now" />
     <meta name="ZhuoDong Zhen" content="spots" />
-    <link rel="stylesheet" href="./pages/index.css" />
-    <link rel="icon" type="image/x-icon" href="favicon.ico" />
     <title>Spots</title>
   </head>
   <body>
     <div class="page">
       <header class="header">
-        <img src="./images/logo.svg" alt="Spots logo" class="header__logo" />
+        <img
+          src="<%=require('./images/logo.svg')%>"
+          alt="Spots logo"
+          class="header__logo"
+        />
       </header>
       <main class="content">
         <section class="profile page__content">
           <section class="profile__avatar-section">
             <img
-              src="./images/avatar.jpg"
+              src="<%=require('./images/avatar.jpg')%>"
               alt="Profile photo of Bessie Coleman"
               class="profile__avatar"
             />
@@ -29,7 +31,7 @@
               </div>
               <button class="profile__button-secondary">
                 <img
-                  src="./images/pencil.svg"
+                  src="<%=require('./images/pencil.svg')%>"
                   alt="Edit profile"
                   class="profile__edit-icon"
                 />
@@ -40,7 +42,7 @@
 
           <button class="profile__button-large">
             <img
-              src="./images/plus.svg"
+              src="<%=require('./images/plus.svg')%>"
               alt="plus icon"
               class="profile__new-post-icon"
             />
@@ -176,7 +178,5 @@
       </div>
       <!------------------------------------------------------------------------------------>
     </div>
-    <script src="./scripts/validation.js"></script>
-    <script src="./scripts/index.js"></script>
   </body>
 </html>

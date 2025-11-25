@@ -1,7 +1,7 @@
 /* -------------------------------------------------------------------------- */
 /*                        Configuration Settings                        */
 /* -------------------------------------------------------------------------- */
-const settings = {
+export const settings = {
   formSelector: ".modal__form",
   inputSelector: ".modal__input",
   submitButtonSelector: ".modal__save-button",
@@ -26,7 +26,7 @@ const showInputError = (formElement, inputElement, errorMessage, config) => {
 };
 
 // function for hide the error message and remove error styling
-const hideInputError = (formElement, inputElement, config) => {
+export const hideInputError = (formElement, inputElement, config) => {
   const errorElement = formElement.querySelector(`.${inputElement.id}-error`);
 
   // remove the error class
@@ -65,7 +65,7 @@ const hasInvalidInput = (inputList) => {
 };
 
 // function for to toggle the submit button state
-const toggleButtonState = (inputList, buttonElement, config) => {
+export const toggleButtonState = (inputList, buttonElement, config) => {
   // check if there is at least one invalid input:
   if (hasInvalidInput(inputList)) {
     // disable the button and add the inactive style class
@@ -111,7 +111,7 @@ const setEventListeners = (formElement, config) => {
 /* -------------------------------------------------------------------------- */
 
 // for enable validation on all forms matching the selector
-const enableValidation = (config) => {
+export const enableValidation = (config) => {
   // select all forms on the page
   const formList = document.querySelectorAll(config.formSelector);
 
@@ -120,6 +120,3 @@ const enableValidation = (config) => {
     setEventListeners(formElement, config);
   });
 };
-
-// start the validation by using the settings object
-enableValidation(settings);

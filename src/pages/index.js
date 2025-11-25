@@ -1,3 +1,15 @@
+// import
+
+import "./index.css";
+import {
+  settings,
+  enableValidation,
+  toggleButtonState,
+  hideInputError,
+} from "../scripts/validation.js";
+
+// end import
+
 /*        init and selector        */
 
 // for init
@@ -303,3 +315,6 @@ function updateNoCards() {
     noCardsElement.classList.add("no-cards_hidden");
   }
 }
+
+// start the validation by using the settings object
+enableValidation(settings);
