@@ -154,6 +154,22 @@ function closeModal(modal) {
   document.removeEventListener("keydown", closeOnEscape);
 }
 
+// helper function to manage button loading
+function renderLoading(
+  button,
+  isLoading,
+  loadingText = "Saving...",
+  originalText = "Save"
+) {
+  if (isLoading) {
+    button.textContent = loadingText;
+    button.disabled = true;
+  } else {
+    button.textContent = originalText;
+    button.disabled = false;
+  }
+}
+
 /*--------------------------------------------------------------------------------------------------------*/
 // End init
 /*--------------------------------------------------------------------------------------------------------*/
@@ -186,7 +202,7 @@ function getCardElement(data) {
     cardLikeBtn.classList.toggle("card__like-button_click");
   }
 
-  // When the user clicks on the card’s heart-shaped “like button,” the heart's color should change
+  // When the user clicks on the card's heart-shaped "like button," the heart's color should change
   cardLikeBtn.addEventListener("click", function (event) {
     event.stopPropagation();
     selectedCardId = data._id;
@@ -198,12 +214,12 @@ function getCardElement(data) {
       .catch(console.error);
   });
 
-  // When the user clicks a card’s trashcan-shaped delete button, the card should be removed from the DOM
+  // When the user clicks a card's trashcan-shaped delete button, the card should be removed from the DOM
   cardDeleteBtn.addEventListener("click", (evt) =>
     handleDeleteCard(cardElement, data._id)
   );
 
-  //When the user clicks a card’s image, a modal should appear showing a larger version of the image and its title
+  //When the user clicks a card's image, a modal should appear showing a larger version of the image and its title
   cardImage.addEventListener("click", function () {
     PreviewImage.src = data.link;
     PreviewImage.alt = data.name;
@@ -234,6 +250,10 @@ function handleDeleteCard(cardElement, id) {
 // variables to target the correct card.
 function handleDeleteSubmit(evt) {
   evt.preventDefault();
+
+  // Show loading state
+  renderLoading(PopupDeleteBtn, true, "Deleting...", "Deleted");
+
   api
     .deleteCard(selectedCardId) // pass the ID the the api function
     .then(() => {
@@ -244,7 +264,11 @@ function handleDeleteSubmit(evt) {
       updateNoCards();
       closeModal(popupModal);
     })
-    .catch(console.error);
+    .catch(console.error)
+    .finally(() => {
+      // Reset button state
+      renderLoading(PopupDeleteBtn, false, "Deleting...", "Deleted");
+    });
 }
 
 /*        project init end       */
@@ -318,6 +342,11 @@ EditProfileBtn.addEventListener("click", function () {
 editProfileForm.addEventListener("submit", function (EventObject) {
   EventObject.preventDefault();
 
+  const saveButton = editProfileForm.querySelector(".modal__save-button");
+
+  // Show loading state
+  renderLoading(saveButton, true);
+
   //send update request
   api
     .editUserInfo({
@@ -327,10 +356,13 @@ editProfileForm.addEventListener("submit", function (EventObject) {
     .then((data) => {
       profileName.textContent = data.name;
       profileDescription.textContent = data.about;
+      closeModal(editProfileModal);
     })
-    .catch(console.error);
-
-  closeModal(editProfileModal);
+    .catch(console.error)
+    .finally(() => {
+      // Reset button state
+      renderLoading(saveButton, false);
+    });
 });
 
 // profile - avatar part
@@ -343,13 +375,23 @@ AvatarBtn.addEventListener("click", function () {
 
 avatarForm.addEventListener("submit", function (EventObject) {
   EventObject.preventDefault();
+
+  const saveButton = avatarForm.querySelector(".modal__save-button");
+
+  // Show loading state
+  renderLoading(saveButton, true);
+
   api
     .editAvatarInfo(avatarLinkInput.value)
     .then((data) => {
       profileAvatar.src = data.avatar;
+      closeModal(avatarModal);
     })
-    .catch(console.error);
-  closeModal(avatarModal);
+    .catch(console.error)
+    .finally(() => {
+      // Reset button state
+      renderLoading(saveButton, false);
+    });
 });
 
 /*--------------------------------------------------------------------------------------------------------*/
@@ -361,9 +403,9 @@ NewPostBtn.addEventListener("click", function () {
 });
 
 /*
-“New post” modal submission:
+"New post" modal submission:
 Create the form submission handler,
-When the user clicks the "Save" button on the “New post” modal, the modal should close,
+When the user clicks the "Save" button on the "New post" modal, the modal should close,
 and a new card should appear as the first element in the card container.
 */
 function handleAddCardSubmit(evt) {
@@ -373,6 +415,11 @@ function handleAddCardSubmit(evt) {
   // Log both input values to the console.
   console.log("New Post name:", newPostNameInput.value);
   console.log("New Post image link:", newPostLinkInput.value);
+
+  const saveButton = addCardFormElement.querySelector(".modal__save-button");
+
+  // Show loading state
+  renderLoading(saveButton, true);
 
   // add card to the server via api
   api
@@ -403,7 +450,11 @@ function handleAddCardSubmit(evt) {
       // Then close the modal
       closeModal(newPostModal);
     })
-    .catch(console.error);
+    .catch(console.error)
+    .finally(() => {
+      // Reset button state
+      renderLoading(saveButton, false);
+    });
 }
 
 // Create the submit listener that add a card when user submit the info
