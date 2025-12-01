@@ -7,12 +7,14 @@ import {
   toggleButtonState,
   hideInputError,
 } from "../scripts/validation.js";
+import Api from "../utils/Api.js";
 
 // end import
 
-/*        init and selector        */
+/*--------------------------------------------------------------------------------------------------------*/
 
-// for init
+/*        init and selector        */
+// For init
 const cardsList = document.querySelector(".cards__list");
 const cardTemplate = document
   .querySelector("#card-template")
@@ -29,35 +31,57 @@ const allModals = Array.from(document.querySelectorAll(".modal"));
 const editProfileModal = document.querySelector("#edit-profile-modal");
 const newPostModal = document.querySelector("#new-post-modal");
 const previewModal = document.querySelector("#preview-image-modal");
+const avatarModal = document.querySelector("#avatar-modal");
+const popupModal = document.querySelector("#popup-modal");
 
 // button for opening modal
 const EditProfileBtn = document.querySelector(".profile__button-secondary");
 const NewPostBtn = document.querySelector(".profile__button-large");
+const AvatarBtn = document.querySelector(".profile__avatar-btn");
 
 // button for closing modal
 const EditProfileCloseBtn = editProfileModal.querySelector(
   ".modal__close-button"
 );
 const NewPostCloseBtn = newPostModal.querySelector(".modal__close-button");
-const PreviewCloseBtn = previewModal.querySelector(
+const PreviewCloseBtn = document.querySelectorAll(
   ".modal__close-button_type_preview"
 );
+const AvatarCloseBtn = avatarModal.querySelector(".modal__close-button");
 
-// select current input
+// button for popup modal for deleting a card or cancel deleting
+const popupForm = popupModal.querySelector(".modal__form");
+// button that delete card:
+const PopupDeleteBtn = popupForm.querySelector(".modal__save-button");
+// button that cancel deleting:
+const PopupCancelBtn = popupForm.querySelector(".modal__cancel-button");
+
+// select current info of user profile
 const profileName = document.querySelector(".profile__name");
 const profileDescription = document.querySelector(".profile__description");
+const profileAvatar = document.querySelector(".profile__avatar");
 
-// select user input
+// select user profile input
 const editProfileForm = editProfileModal.querySelector(".modal__form");
 const profileNameInput = editProfileModal.querySelector("#modal-profile-name");
 const descriptionInput = editProfileModal.querySelector(
   "#modal-profile-description"
 );
 
+// select image for user avatar
+const avatarForm = avatarModal.querySelector(".modal__form");
+const avatarLinkInput = avatarModal.querySelector("#modal-avatar-link");
+
+// select user new post input
+const addCardFormElement = newPostModal.querySelector(".modal__form");
+const newPostLinkInput = newPostModal.querySelector("#modal-image-link");
+const newPostNameInput = newPostModal.querySelector("#modal-caption-texts");
+
 // select caption and select image for preview modal
 const PreviewCaption = previewModal.querySelector(".modal__caption");
 const PreviewImage = previewModal.querySelector(".modal__image");
 
+/*
 const initialCards = [
   {
     name: "Val Thorens",
@@ -84,10 +108,73 @@ const initialCards = [
     link: "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/spots/6-photo-by-moritz-feldmann-from-pexels.jpg",
   },
 ];
+*/
+
+// Instantiate the api class
+const api = new Api({
+  baseUrl: "https://around-api.en.tripleten-services.com/v1",
+  headers: {
+    authorization: "75d1e950-8b0b-4da2-bcdb-0148ca864c87", // Replace with your actual token
+    "Content-Type": "application/json",
+  },
+});
+
+api
+  .getUserInfo()
+  .then((data) => {
+    profileAvatar.src = data.avatar;
+    profileName.textContent = data.name;
+    profileDescription.textContent = data.about;
+  })
+  .catch((err) => {
+    console.error(err);
+  });
+
+api
+  .getInitialCards()
+  .then((cards) => {
+    cards.forEach((card) => {
+      const cardElement = getCardElement(card);
+      cardsList.append(cardElement);
+      updateNoCards();
+    });
+  })
+  .catch((err) => {
+    console.error(err);
+  });
+
+// openModal and closeModal functions
+function openModal(modal) {
+  modal.classList.add("modal_is-opened");
+  document.addEventListener("keydown", closeOnEscape);
+}
+
+function closeModal(modal) {
+  modal.classList.remove("modal_is-opened");
+  document.removeEventListener("keydown", closeOnEscape);
+}
+
+// helper function to manage button loading
+function renderLoading(
+  button,
+  isLoading,
+  loadingText = "Saving...",
+  originalText = "Save"
+) {
+  if (isLoading) {
+    button.textContent = loadingText;
+    button.disabled = true;
+  } else {
+    button.textContent = originalText;
+    button.disabled = false;
+  }
+}
 
 /*--------------------------------------------------------------------------------------------------------*/
+// End init
+/*--------------------------------------------------------------------------------------------------------*/
 
-/*        sprint 6        */
+/*--------------------------------------------------------------------------------------------------------*/
 /*
 task:
 Create a function called getCardElement() that has one parameter: (data)
@@ -110,21 +197,29 @@ function getCardElement(data) {
   cardImage.src = data.link;
   cardImage.alt = data.name;
 
-  // When the user clicks on the card’s heart-shaped “like button,” the heart's color should change
+  // set like btn card active if isLike is true
+  if (data.isLiked) {
+    cardLikeBtn.classList.toggle("card__like-button_click");
+  }
+
+  // When the user clicks on the card's heart-shaped "like button," the heart's color should change
   cardLikeBtn.addEventListener("click", function (event) {
     event.stopPropagation();
-    event.target.classList.toggle("card__like-button_click");
+    selectedCardId = data._id;
+    api
+      .handleLike(selectedCardId, data.isLiked) // pass the ID the the api function
+      .then(() => {
+        event.target.classList.toggle("card__like-button_click");
+      })
+      .catch(console.error);
   });
 
-  // When the user clicks a card’s trashcan-shaped delete button, the card should be removed from the DOM
-  cardDeleteBtn.addEventListener("click", function (evt) {
-    evt.stopPropagation();
-    cardCount -= 1;
-    updateNoCards();
-    cardElement.remove();
-  });
+  // When the user clicks a card's trashcan-shaped delete button, the card should be removed from the DOM
+  cardDeleteBtn.addEventListener("click", (evt) =>
+    handleDeleteCard(cardElement, data._id)
+  );
 
-  //When the user clicks a card’s image, a modal should appear showing a larger version of the image and its title
+  //When the user clicks a card's image, a modal should appear showing a larger version of the image and its title
   cardImage.addEventListener("click", function () {
     PreviewImage.src = data.link;
     PreviewImage.alt = data.name;
@@ -137,27 +232,48 @@ function getCardElement(data) {
   return cardElement;
 }
 
-initialCards.forEach((card) => {
-  const cardElement = getCardElement(card);
-  cardsList.append(cardElement);
-});
-
 updateNoCards();
 
-/*        sprint 5 and 6 init end       */
+// Outside of any functions, declare variables to store the current selected
+// card and its ID. You will assign them values when a delete icon is clicked.
+let selectedCard;
+let selectedCardId;
+
+function handleDeleteCard(cardElement, id) {
+  selectedCard = cardElement; // Assign the card element to selectedCard
+  selectedCardId = id; // Assign the card's ID to selectedCardId
+
+  openModal(popupModal);
+}
+
+// The submission handler makes use of the selectedCard and selectedCardId
+// variables to target the correct card.
+function handleDeleteSubmit(evt) {
+  evt.preventDefault();
+
+  // Show loading state
+  renderLoading(PopupDeleteBtn, true, "Deleting...", "Deleted");
+
+  api
+    .deleteCard(selectedCardId) // pass the ID the the api function
+    .then(() => {
+      console.log("card deleted");
+      // close the modal
+      selectedCard.remove();
+      cardCount -= 1;
+      updateNoCards();
+      closeModal(popupModal);
+    })
+    .catch(console.error)
+    .finally(() => {
+      // Reset button state
+      renderLoading(PopupDeleteBtn, false, "Deleting...", "Deleted");
+    });
+}
+
+/*        project init end       */
 
 /*--------------------------------------------------------------------------------------------------------*/
-
-//openModal and closeModal functions
-function openModal(modal) {
-  modal.classList.add("modal_is-opened");
-  document.addEventListener("keydown", closeOnEscape);
-}
-
-function closeModal(modal) {
-  modal.classList.remove("modal_is-opened");
-  document.removeEventListener("keydown", closeOnEscape);
-}
 
 /*--------------------------------------------------------------------------------------------------------*/
 
@@ -174,14 +290,33 @@ NewPostCloseBtn.addEventListener("click", function () {
 });
 
 // sprint 6
-// close button for preview modal
-PreviewCloseBtn.addEventListener("click", function () {
-  closeModal(previewModal);
+// close button for preview modal and popup modal
+PreviewCloseBtn.forEach((button) => {
+  button.addEventListener("click", function () {
+    const parentModal = button.closest(".modal");
+    if (parentModal.id === "preview-image-modal") {
+      closeModal(previewModal);
+    } else if (parentModal.id === "popup-modal") {
+      closeModal(popupModal);
+    }
+  });
+});
+
+// cancel button that cancel Card Deletion
+PopupCancelBtn.addEventListener("click", function () {
+  selectedCard = "";
+  selectedCardId = "";
+  closeModal(popupModal);
+});
+
+// close button for avatar modal
+AvatarCloseBtn.addEventListener("click", function () {
+  closeModal(avatarModal);
 });
 
 /*--------------------------------------------------------------------------------------------------------*/
-/*        sprint 5 and 6        */
-/*--------------------------------------------------------------------------------------------------------*/
+
+// profile modal
 // Filling the form fields when opening the modal and Edit Profile form submission
 EditProfileBtn.addEventListener("click", function () {
   profileNameInput.value = profileName.textContent;
@@ -206,29 +341,71 @@ EditProfileBtn.addEventListener("click", function () {
 
 editProfileForm.addEventListener("submit", function (EventObject) {
   EventObject.preventDefault();
-  profileName.textContent = profileNameInput.value;
-  profileDescription.textContent = descriptionInput.value;
-  //editProfileModal.classList.remove("modal_is-opened");
-  closeModal(editProfileModal);
+
+  const saveButton = editProfileForm.querySelector(".modal__save-button");
+
+  // Show loading state
+  renderLoading(saveButton, true);
+
+  //send update request
+  api
+    .editUserInfo({
+      name: profileNameInput.value,
+      about: descriptionInput.value,
+    })
+    .then((data) => {
+      profileName.textContent = data.name;
+      profileDescription.textContent = data.about;
+      closeModal(editProfileModal);
+    })
+    .catch(console.error)
+    .finally(() => {
+      // Reset button state
+      renderLoading(saveButton, false);
+    });
 });
 
-// New Post modal
-// Select the necessary form elements. You should select
-// these from inside the modal, not the document.
-const addCardFormElement = newPostModal.querySelector(".modal__form");
-const newPostLinkInput = newPostModal.querySelector("#modal-image-link");
-const newPostNameInput = newPostModal.querySelector("#modal-caption-texts");
+// profile - avatar part
+// click for open avatar modal
+AvatarBtn.addEventListener("click", function () {
+  openModal(avatarModal);
+});
 
+// Updating the profile picture when submit
+
+avatarForm.addEventListener("submit", function (EventObject) {
+  EventObject.preventDefault();
+
+  const saveButton = avatarForm.querySelector(".modal__save-button");
+
+  // Show loading state
+  renderLoading(saveButton, true);
+
+  api
+    .editAvatarInfo(avatarLinkInput.value)
+    .then((data) => {
+      profileAvatar.src = data.avatar;
+      closeModal(avatarModal);
+    })
+    .catch(console.error)
+    .finally(() => {
+      // Reset button state
+      renderLoading(saveButton, false);
+    });
+});
+
+/*--------------------------------------------------------------------------------------------------------*/
+
+// New Post modal
 // click for open new post modal
 NewPostBtn.addEventListener("click", function () {
   openModal(newPostModal);
 });
 
 /*
-task 4:
-“New post” modal submission:
+"New post" modal submission:
 Create the form submission handler,
-When the user clicks the "Save" button on the “New post” modal, the modal should close,
+When the user clicks the "Save" button on the "New post" modal, the modal should close,
 and a new card should appear as the first element in the card container.
 */
 function handleAddCardSubmit(evt) {
@@ -239,35 +416,52 @@ function handleAddCardSubmit(evt) {
   console.log("New Post name:", newPostNameInput.value);
   console.log("New Post image link:", newPostLinkInput.value);
 
-  // data of user input
-  const UserInput = {
-    name: newPostNameInput.value,
-    link: newPostLinkInput.value,
-  };
+  const saveButton = addCardFormElement.querySelector(".modal__save-button");
 
-  // use getCardElement() function to create the new card and add then add it to the DOM
-  const NewCardElement = getCardElement(UserInput);
-  cardsList.prepend(NewCardElement);
+  // Show loading state
+  renderLoading(saveButton, true);
 
-  updateNoCards();
+  // add card to the server via api
+  api
+    .postCard({
+      name: newPostNameInput.value,
+      link: newPostLinkInput.value,
+    })
+    .then((data) => {
+      // use getCardElement() function to create the new card and add then add it to the DOM
+      const NewCardElement = getCardElement(data);
+      cardsList.prepend(NewCardElement);
 
-  // Reset the form to clear all inputs
-  evt.target.reset();
+      updateNoCards();
 
-  // reset validation after first submit
-  const formElement = newPostModal.querySelector(".modal__form");
-  const inputList = Array.from(formElement.querySelectorAll(".modal__input"));
-  const buttonElement = formElement.querySelector(".modal__save-button");
+      // Reset the form to clear all inputs
+      evt.target.reset();
 
-  //check button state
-  toggleButtonState(inputList, buttonElement, settings);
+      // reset validation after first submit
+      const formElement = newPostModal.querySelector(".modal__form");
+      const inputList = Array.from(
+        formElement.querySelectorAll(".modal__input")
+      );
+      const buttonElement = formElement.querySelector(".modal__save-button");
 
-  // Then close the modal
-  closeModal(newPostModal);
+      //check button state
+      toggleButtonState(inputList, buttonElement, settings);
+
+      // Then close the modal
+      closeModal(newPostModal);
+    })
+    .catch(console.error)
+    .finally(() => {
+      // Reset button state
+      renderLoading(saveButton, false);
+    });
 }
 
-// Create the submit listener.
+// Create the submit listener that add a card when user submit the info
 addCardFormElement.addEventListener("submit", handleAddCardSubmit);
+
+// Create the submit listener that delete the select card
+popupForm.addEventListener("submit", handleDeleteSubmit);
 
 /*--------------------------------------------------------------------------------------------------------*/
 /*        sprint 5 and 6 end        */
