@@ -19,15 +19,24 @@
       <main class="content">
         <section class="profile page__content">
           <section class="profile__avatar-section">
-            <img
-              src="<%=require('./images/avatar.jpg')%>"
-              alt="Profile photo of Bessie Coleman"
-              class="profile__avatar"
-            />
+            <div class="profile__avatar-container">
+              <button class="profile__avatar-btn">
+                <img
+                  src="<%=require('./images/pencil_w.png')%>"
+                  alt="Edit profile avatar"
+                  class="profile__avatar-edit-icon"
+                />
+              </button>
+              <img
+                src="<%=require('./images/unknown.png')%>"
+                alt="Profile photo of Bessie Coleman"
+                class="profile__avatar"
+              />
+            </div>
             <div class="profile__column">
               <div class="profile__column-content">
-                <h1 class="profile__name">Bessie Coleman</h1>
-                <p class="profile__description">Civil Aviator</p>
+                <h1 class="profile__name">Loading User Name...</h1>
+                <p class="profile__description">Loading User description...</p>
               </div>
               <button class="profile__button-secondary">
                 <img
@@ -52,7 +61,7 @@
 
         <section class="cards page__content">
           <div class="no-cards">
-            <p class="no-cards__text">No Post yet, please some Post</p>
+            <p class="no-cards__text">No Post yet, please add some Post</p>
           </div>
           <ul class="cards__list">
             <!-- sprint 6 -->
@@ -74,9 +83,8 @@
         <p class="footer__text">2023 © Spots</p>
       </footer>
 
-      <!-- sprint 4 -->
       <!-- new-post-modal and edit-profile-modal -->
-      <!-- edit profile -->
+      <!-- edit profile modal -->
       <div class="modal" id="edit-profile-modal">
         <div class="modal__container">
           <div class="modal__head">
@@ -121,7 +129,7 @@
         </div>
       </div>
 
-      <!-- new  post -->
+      <!-- new  post modal -->
       <div class="modal" id="new-post-modal">
         <div class="modal__container">
           <div class="modal__head">
@@ -163,6 +171,7 @@
           </form>
         </div>
       </div>
+      <!-- end of new-post-modal and edit-profile-modal -->
 
       <!-- The preview image modal -->
       <div class="modal modal_type_preview" id="preview-image-modal">
@@ -174,6 +183,55 @@
             alt=""
           />
           <p class="modal__caption"></p>
+        </div>
+      </div>
+
+      <!-- The modal for updating the profile picture -->
+      <div class="modal" id="avatar-modal">
+        <div class="modal__container">
+          <div class="modal__head">
+            <h2 class="modal__title">Edit profile avatar</h2>
+            <button class="modal__close-button"></button>
+          </div>
+
+          <form class="modal__form" novalidate>
+            <div class="modal__form-group">
+              <label for="modal-avatar-link" class="modal__label"
+                >Profile Picture</label
+              >
+              <input
+                type="url"
+                id="modal-avatar-link"
+                placeholder="Paste the link to an image"
+                class="modal__input"
+                required
+              />
+              <span class="modal__input-error modal-avatar-link-error"></span>
+            </div>
+            <button type="submit" class="modal__save-button">Save</button>
+          </form>
+        </div>
+      </div>
+
+      <!-- Creating a popup for deleting a card -->
+      <div class="modal" id="popup-modal">
+        <div class="modal__container modal__popup-container">
+          <button class="modal__close-button_type_preview"></button>
+          <div class="modal__head modal__head-popup">
+            <h2 class="modal__title modal__title-popup">
+              Are you sure you want to delete this image?
+            </h2>
+          </div>
+
+          <form class="modal__form modal__form-popup" novalidate>
+            <button
+              type="submit"
+              class="modal__save-button modal__delete-button"
+            >
+              Delete
+            </button>
+            <button type="button" class="modal__cancel-button">Cancel</button>
+          </form>
         </div>
       </div>
       <!------------------------------------------------------------------------------------>
