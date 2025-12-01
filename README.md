@@ -33,6 +33,7 @@ This project is made so all the elements are displayed correctly on popular scre
  1. [Heres the link to the layout of Figma](https://www.figma.com/file/BBNm2bC3lj8QQMHlnqRsga/Sprint-3-Project-%E2%80%94-Spots?type=design&node-id=2%3A60&mode=design&t=afgNFybdorZO6cQo-1)
  2. [Heres the link of second step of Figma](https://www.figma.com/design/rGnA0eBcxYVOpA4bxmqlyu/Sprint-4-Project-Spots---March-2025?node-id=0-1&p=f&t=Qxtv8XIXC4fGMQrN-0)
  3. [Heres the link of Validation and UX improve of Figma](https://www.figma.com/design/jFtXsDr4XOyebKcgjyXN6W/Sprint-6-Project--Spots?node-id=2-253&t=zc9u3L7DRVBVx2IZ-0)
+ 4. [Heres the link of API interaction of Figma](https://www.figma.com/design/mXGZ6wZ4QPKx5KjpHX9QCV/Sprint-9-Project--Spots?node-id=0-1&p=f&t=cCklHTVl7gp8mlof-0)
 <br />
 <br />
 <br />
@@ -46,6 +47,8 @@ This project is made so all the elements are displayed correctly on popular scre
  1. Spots Stage 2  - Check out [this video](https://www.loom.com/share/cc55c06b7bdc4d9096f5b20eba818397?sid=b7bdab83-cc92-4104-9cb4-7efefabe8f6d), where I describe my 
  project and some challenges I faced while building it.
  2. Spots Stage 9  - Check out [this video](https://www.loom.com/share/7340b589063149b19a7d56250dc204c6), where I describe my 
+ project and some challenges I faced while building it.
+ 3.  Spots Stage Final  - Check out [this video](https://www.loom.com/share/bbe815b8c1c84677b59c97496946021e), where I describe my 
  project and some challenges I faced while building it.
 
 <br />
